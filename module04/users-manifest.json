@@ -1,0 +1,15 @@
+{
+    "tables": [
+        {
+            "table_name": "users",
+            "file_patterns": [
+                "gs://BUCKET_NAME/users.csv"
+            ],
+            "columns": [
+                {"column_name" : "username", "type_name" : "STRING" },
+                {"column_name" : "location", "type_name" : "STRING" },
+                {"column_name" : "age", "type_name" : "INT64" }
+            ]
+        }
+    ]
+}
