@@ -34,7 +34,7 @@ Run the following statement.
 ALTER TABLE users ADD COLUMN age INT64;
 ```
 
-Expand the `user` table in the object explorer. Click `Columns` and verify that the new `age` column is present.
+Expand the `users` table in the object explorer. Click `Columns` and verify that the new `age` column is present.
 
 Create an index for the `age` column.
 
@@ -44,4 +44,4 @@ Run the following statement.
 CREATE INDEX idx_user_age ON users(age);
 ```
 
-Expand `Indexes` under the `User` table in the object explorer and verify that the new index is present.
+Expand `Indexes` under the `users` table in the object explorer and verify that the new index is present.
