@@ -270,7 +270,7 @@ with database.snapshot() as snapshot:
 
 In Cloud Shell, click `Open Editor`.
 
-Edit `sql.py`.
+Edit `sql.py` under `module04` folder.
 
 - Replace `INSERT YOUR INSTANCE ID` with the ID of the Spanner instance. 
 - Replace `INSERT YOUR DATABASE NAME` with the name of the database.
