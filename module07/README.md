@@ -27,7 +27,7 @@ CREATE TABLE Connected (
   CONSTRAINT fk_router
     FOREIGN KEY (to_router_id)
     REFERENCES Router(router_id) NOT ENFORCED
-) PRIMARY KEY (router_id, to_router_id)
+) PRIMARY KEY (router_id, to_router_id),
   INTERLEAVE IN PARENT Router;
 
 CREATE INDEX idx_ConnectedFrom ON
