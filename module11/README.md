@@ -44,6 +44,21 @@ Click on an edge to display its properties.
 
 ![alt text](images/image-4.png)
 
+Run these variants of the previous query, where direction was added to the edge pattern.
+Observe how the direction changes the result.
+
+```sql
+graph network
+match p=(:Router {router_id: "core1"})-[:Connected]->(:Router)
+return SAFE_TO_JSON(p) as result
+```
+
+```sql
+graph network
+match p=(:Router {router_id: "core1"})<-[:Connected]-(:Router)
+return SAFE_TO_JSON(p) as result
+```
+
 Run this query to find all paths between two edge routers.
 
 ```sql
