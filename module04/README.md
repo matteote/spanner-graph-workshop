@@ -173,8 +173,10 @@ gcloud compute networks list --filter="name=default"
 If the default network does not exist, create it using these commands.
 
 ```shell
-gcloud compute networks create default --subnet-mode=auto --mtu=1460 --bgp-routing-mode=regional --bgp-best-path-selection-mode=legacy && gcloud compute firewall-rules create default-allow-custom-2 --network=projects/$GOOGLE_CLOUD_PROJECT/global/networks/default --description=Allows\ connection\ from\ any\ source\ to\ any\ instance\ on\ the\ network\ using\ custom\ protocols. --direction=INGRESS --priority=65534 --source-ranges=10.128.0.0/9 --action=ALLOW --rules=all
+gcloud compute networks create default --subnet-mode=auto --mtu=1460 --bgp-routing-mode=regional --bgp-best-path-selection-mode=legacy && gcloud compute firewall-rules create default-allow-custom-2 --network=projects/$GOOGLE_CLOUD_PROJECT/global/networks/default --description=Allows\ connection\ from\ any\ source\ to\ any\ instance\ on\ the\ network\ using\ custom\ protocols. --direction=INGRESS --priority=65534 --source-ranges=10.0.0.0/8 --action=ALLOW --rules=all
 ```
+
+Enable Private Google Access in the subnet of the region you are using.
 
 Enable the Dataflow api.
 The commands below disable the API first in case it was already enabled to make sure the right permissions are applied.
