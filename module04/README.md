@@ -176,7 +176,19 @@ If the default network does not exist, create it using these commands.
 gcloud compute networks create default --subnet-mode=auto --mtu=1460 --bgp-routing-mode=regional --bgp-best-path-selection-mode=legacy && gcloud compute firewall-rules create default-allow-custom-2 --network=projects/$GOOGLE_CLOUD_PROJECT/global/networks/default --description=Allows\ connection\ from\ any\ source\ to\ any\ instance\ on\ the\ network\ using\ custom\ protocols. --direction=INGRESS --priority=65534 --source-ranges=10.0.0.0/8 --action=ALLOW --rules=all
 ```
 
-Enable Private Google Access in the subnet of the region you are using.
+Enable Private Google Access in the subnet of the region you are using, so that the Dataflow compute resources can connect to Google APIs without a public IP address.
+
+To do so, change the region in the following script as needed and run it.
+
+```shell
+REGION=europe-west1
+
+gcloud compute networks subnets update default --enable-private-ip-google-access --region=$REGION
+```
+
+To verify that Private Google Access is enabled, open the VPC network, select the subnet of the region you plan to use and check the Private Google Access setting.
+
+![alt text](images/image-4.png)
 
 Enable the Dataflow api.
 The commands below disable the API first in case it was already enabled to make sure the right permissions are applied.
