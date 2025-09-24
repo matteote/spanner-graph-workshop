@@ -200,20 +200,25 @@ gcloud services enable dataflow.googleapis.com
 ```
 
 Create a storage bucket.
-Replace BUCKET_NAME with a globally unique name.
+Set the region as needed in `REGION` and provide a globally unique name for the bucket in `BUCKET_NAME`.
 
 ```shell
-gsutil mb gs://BUCKET_NAME
+REGION=europe-west1
+BUCKET_NAME=my_bucket_name
+
+gcloud storage buckets create gs://$BUCKET_NAME/ --location=$REGION
 ```
 
 Edit `users-manifest.json`. Replace `BUCKET_NAME` with the name of the bucket you created.
 
 Copy `users-manifest.json` and `users.csv` to the bucket.
-Replace `BUCKET_NAME` in the command below with the name of the bucket you created.
+Set `BUCKET_NAME` to the name of the bucket you have just created created.
 
 ```shell
-gsutil cp users-manifest.json gs://BUCKET_NAME
-gsutil cp users.csv gs://BUCKET_NAME
+BUCKET_NAME=my_bucket_name
+
+gsutil cp users-manifest.json gs://$BUCKET_NAME
+gsutil cp users.csv gs://$BUCKET_NAME
 ```
 
 Start the Dataflow job.
