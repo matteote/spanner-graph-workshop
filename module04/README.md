@@ -199,6 +199,32 @@ gcloud services disable dataflow.googleapis.com --force
 gcloud services enable dataflow.googleapis.com
 ```
 
+Assign the required IAM roles to the Compute Engine default service account.
+Dataflow jobs use the Compute Engine service account to access Google Cloud API, unless otherwise specified.
+Run the command below to assign the required IAM roles to the default Compute Engine service account.
+
+```shell
+CE_DEFAULT_ACCOUNT=$(gcloud iam service-accounts list \
+    --filter "display_name='Compute Engine default service account'" \
+    --format "value(email)")
+
+gcloud projects add-iam-policy-binding \
+    $GOOGLE_CLOUD_PROJECT \
+    --member serviceAccount:$CE_DEFAULT_ACCOUNT \
+    --role=roles/spanner.databaseUser
+
+gcloud projects add-iam-policy-binding \
+    $GOOGLE_CLOUD_PROJECT \
+    --member serviceAccount:$CE_DEFAULT_ACCOUNT \
+    --role=roles/dataflow.worker
+
+gcloud projects add-iam-policy-binding \
+    $GOOGLE_CLOUD_PROJECT \
+    --member serviceAccount:$CE_DEFAULT_ACCOUNT \
+    --role=roles/storage.objectUser
+
+```
+
 Create a storage bucket.
 Set the region as needed in `REGION` and provide a globally unique name for the bucket in `BUCKET_NAME`.
 
