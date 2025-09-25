@@ -249,16 +249,23 @@ gsutil cp users.csv gs://$BUCKET_NAME
 
 Start the Dataflow job.
 
-- Replace `REGION` with the desired region (e.g. europe-west1)
-- Replace `INSTANCE_ID` with the ID of the Spanner instance
-- Replace `DATABASE` with the name of the database
-- Replace `BUCKET_NAME` with the name of the bucket
+- Set `REGION` to the desired region (e.g. europe-west1)
+- Set `INSTANCE_ID` to the ID of the Spanner instance
+- Set `DATABASE` to the name of the database
+- Set `BUCKET_NAME` to the name of the bucket
 
 ```shell
+REGION=europe-west1
+INSTANCE_ID=my-instance
+DATABASE=my-database
+BUCKET_NAME=my_bucket_name
+
 gcloud dataflow jobs run import-csv-to-spanner \
---gcs-location gs://dataflow-templates-REGION/latest/GCS_Text_to_Cloud_Spanner \
---region REGION \
---parameters instanceId=INSTANCE_ID,databaseId=DATABASE,importManifest=gs://BUCKET_NAME/users-manifest.json
+--gcs-location gs://dataflow-templates-$REGION/latest/GCS_Text_to_Cloud_Spanner \
+--region $REGION \
+--parameters instanceId=$INSTANCE_ID,databaseId=$DATABASE,importManifest=gs://$BUCKET_NAME/users-manifest.json \
+--disable-public-ips \
+--subnetwork=https://www.googleapis.com/compute/v1/projects/$GOOGLE_CLOUD_PROJECT/regions/$REGION/subnetworks/default
 ```
 
 Open Dataflow in the Console.
