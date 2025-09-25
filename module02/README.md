@@ -7,6 +7,14 @@ In this module you will:
 - Create a database
 - Explore the Console and Spanner Studio
 
+## Region selection
+
+Some of the exercises require to select a region.
+
+Make sure to always use the same region.
+
+If you are running the exercises in Europe, use `europe-west1`.
+
 ## Create an instance
 
 First step is to create a new Spanner instance.

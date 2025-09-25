@@ -15,6 +15,14 @@ In this module you will:
   - Using the read API in Python
   - Using federated queries in BigQuery
 
+## Region selection
+
+Some of the exercises require to select a region.
+
+Make sure to always use the same region.
+
+If you are running the exercises in Europe, use `europe-west1`.
+
 ## Insert data
 
 ### Using DML in Spanner Studio
@@ -49,21 +57,27 @@ Take note of:
 
 Open the Cloud Shell in Google Cloud Console (you may need to authorize it).
 
-Run the following command.
-Replace `INSTANCE_ID` with the ID of the Spanner instance.
-Replace `DATABASE_NAME` with the name of the database.
+Modify the script below:
+
+- Set `INSTANCE_ID` to the ID of the Spanner instance.
+- Set `DATABASE_NAME` to the name of the database.
+
+Once done, run the script.
 
 ```shell
-gcloud spanner databases execute-sql DATABASE_NAME \
---instance=INSTANCE_ID \
+INSTANCE_ID=my-instance
+DATABASE=my-database
+
+gcloud spanner databases execute-sql $DATABASE_NAME \
+--instance=$INSTANCE_ID \
 --sql="INSERT INTO users(username, location, age) VALUES('Max Mustermann','Germany',55);"
 ```
 
 Check the content of the table running this command.
 
 ```shell
-gcloud spanner databases execute-sql DATABASE_NAME \
---instance=INSTANCE_ID \
+gcloud spanner databases execute-sql $DATABASE_NAME \
+--instance=$INSTANCE_ID \
 --sql="SELECT * FROM users;"
 ```
 
@@ -162,23 +176,21 @@ python mutations.py
 
 ### Using Dataflow
 
-Dataflow requires a default network (in its default configuration).
+#### Create a network
 
-Check that a default network exists running this command in Cloud Shell.
+Dataflow requires a network. Create a default network using this command.
 
-```shell
-gcloud compute networks list --filter="name=default"
-```
-
-If the default network does not exist, create it using these commands.
+Note: the command creates a subnet named "default" in every region.
 
 ```shell
 gcloud compute networks create default --subnet-mode=auto --mtu=1460 --bgp-routing-mode=regional --bgp-best-path-selection-mode=legacy && gcloud compute firewall-rules create default-allow-custom-2 --network=projects/$GOOGLE_CLOUD_PROJECT/global/networks/default --description=Allows\ connection\ from\ any\ source\ to\ any\ instance\ on\ the\ network\ using\ custom\ protocols. --direction=INGRESS --priority=65534 --source-ranges=10.0.0.0/8 --action=ALLOW --rules=all
 ```
 
+#### Enable Private Google Access
+
 Enable Private Google Access in the subnet of the region you are using, so that the Dataflow compute resources can connect to Google APIs without a public IP address.
 
-To do so, change the region in the following script as needed and run it.
+To do so, set the desired region in the following script and run it.
 
 ```shell
 REGION=europe-west1
@@ -186,11 +198,12 @@ REGION=europe-west1
 gcloud compute networks subnets update default --enable-private-ip-google-access --region=$REGION
 ```
 
-To verify that Private Google Access is enabled, open the VPC network, select the subnet of the region you plan to use and check the Private Google Access setting.
+To verify that Private Google Access is enabled, open the VPC network in Google Cloud Console, select the subnet of the region you plan to use and check the Private Google Access setting.
 
 ![alt text](images/image-4.png)
 
-Enable the Dataflow api.
+#### Enable the Dataflow API
+
 The commands below disable the API first in case it was already enabled to make sure the right permissions are applied.
 If your project already has Dataflow enabled and you cannot disable it or are not allowed to change it permissions, skip this step.
 
@@ -198,6 +211,8 @@ If your project already has Dataflow enabled and you cannot disable it or are no
 gcloud services disable dataflow.googleapis.com --force
 gcloud services enable dataflow.googleapis.com
 ```
+
+#### Assign the required roles to the Compute Engine service account
 
 Assign the required IAM roles to the Compute Engine default service account.
 Dataflow jobs use the Compute Engine service account to access Google Cloud API, unless otherwise specified.
@@ -225,8 +240,14 @@ gcloud projects add-iam-policy-binding \
 
 ```
 
-Create a storage bucket.
-Set the region as needed in `REGION` and provide a globally unique name for the bucket in `BUCKET_NAME`.
+#### Create a storage bucket
+
+Modify the following script:
+
+- Set `REGION` to the desired region.
+- Set `BUCKET_NAME` to a globally unique name for the bucket.
+
+Once done, run the script.
 
 ```shell
 REGION=europe-west1
@@ -235,10 +256,19 @@ BUCKET_NAME=my_bucket_name
 gcloud storage buckets create gs://$BUCKET_NAME/ --location=$REGION
 ```
 
-Edit `users-manifest.json`. Replace `BUCKET_NAME` with the name of the bucket you created.
+#### Edit the manifest
 
-Copy `users-manifest.json` and `users.csv` to the bucket.
-Set `BUCKET_NAME` to the name of the bucket you have just created created.
+Edit `users-manifest.json` using the Cloud Shell editor.
+
+Replace `BUCKET_NAME` with the name of the bucket you created.
+
+#### Copy manifest and data to the bucket
+
+Modify the following script:
+
+- Set `BUCKET_NAME` to the name of the bucket you have just created created.
+
+Run the script to copy `users-manifest.json` and `users.csv` to the bucket.
 
 ```shell
 BUCKET_NAME=my_bucket_name
@@ -247,12 +277,16 @@ gsutil cp users-manifest.json gs://$BUCKET_NAME
 gsutil cp users.csv gs://$BUCKET_NAME
 ```
 
-Start the Dataflow job.
+#### Start the Dataflow job
+
+Modify the following script:
 
 - Set `REGION` to the desired region (e.g. europe-west1)
 - Set `INSTANCE_ID` to the ID of the Spanner instance
 - Set `DATABASE` to the name of the database
 - Set `BUCKET_NAME` to the name of the bucket
+
+Run the script to start the Dataflow job.
 
 ```shell
 REGION=europe-west1
@@ -267,6 +301,8 @@ gcloud dataflow jobs run import-csv-to-spanner \
 --disable-public-ips \
 --subnetwork=https://www.googleapis.com/compute/v1/projects/$GOOGLE_CLOUD_PROJECT/regions/$REGION/subnetworks/default
 ```
+
+#### Check the status of the Dataflow job
 
 Open Dataflow in the Console.
 
@@ -294,7 +330,7 @@ SELECT * FROM users WHERE age > 50;
 
 Expand the result pane.
 
-Click `EXPLANATION`.
+Click `EXPLANATION` to view the query execution plan.
 
 Verify that the bottom left node of the plan is an `Index scan` on the `idx_user_age` index that was previously created. This confirms the index is being used to filter on the `age` field.
 
@@ -387,11 +423,13 @@ python read_api.py
 
 Open a new query in Spanner Studio.
 
-Click `VIEW IN BIGQUERY`. This creates a new connection.
+Click `VIEW IN BIGQUERY` to create a new connection.
 
-Give an ID to the connection.
+Give an arbitrary ID to the connection.
 
-Select `Region` under `Location type.
+Select `Region` under `Location type`.
+
+Make sure that the field `Region` is set to the region you are using.
 
 Click `VIEW IN BIGQUERY`.
 
