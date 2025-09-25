@@ -51,7 +51,7 @@ Click `CONTINUE`.
 
 Under `Select unit` select `Processing units (PU)`.
 
-Select `Manual allocation` and insert `1000` in `Quantity`.
+Select `Manual allocation` and insert `200` in `Quantity`.
 
 Click `CREATE`
 
