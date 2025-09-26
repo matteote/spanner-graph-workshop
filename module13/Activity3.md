@@ -165,3 +165,5 @@ Back to ADK, try a prompt like the following, using one of the names obtained ab
 > Give me the address of John Smith
 
 > What are the tickets opened by John Smith
+
+> give me temperature and performance metrics associated with ticket 2aa15e43-8844-44aa-8be2-732a43d7ba15
