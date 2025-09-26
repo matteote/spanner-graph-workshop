@@ -10,4 +10,4 @@ Lab support material.
 - [Module 9 - Graph Queries](module09/README.md)
 - [Module 11 - Visualization](module11/README.md)
 - [Module 12 - Graph Algorithms](module12/README.md)
-- [Module 13 - Agents](module13/README.md)
+- [Module 13 - Agents](module13/Activity1.md)
