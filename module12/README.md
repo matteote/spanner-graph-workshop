@@ -9,8 +9,6 @@ The example identifies the path with the lowest latency between two edge routers
 The script first retrieves the graph from Spanner in the `get_network_graph` method.
 The method retrieves all the edges with source, destination and latency, in tabular form.
 
-The script retrieves the entire graph because it is particularly small. For larger graphs it is recommended to attempt extracting a subgraph, when possible.
-
 After retrieving the graph, the script computes the shorted path, based on latency, using NetworkX's native capabilities.
 
 Review the code in `networkx-example.py`
