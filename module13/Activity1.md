@@ -2,6 +2,14 @@
 
 In this activity you create a basic AI agent using the [Agent Development Kit (ADK)](https://google.github.io/adk-docs) for Python.
 
+## Region selection
+
+Some of the exercises require to select a region.
+
+Make sure to always use the same region.
+
+If you are running the exercises in Europe, use `europe-west1`.
+
 ## Setup
 
 ### Enable the Vertex AI API
