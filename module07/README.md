@@ -7,6 +7,12 @@ In this module you will:
 
 For the tasks below, you need Spanner Studio.
 
+## Spanner instance creation
+
+This lab and the following require a Spanner instance.
+
+To create one, follow the steps under  in **Create an instance** in [Module 2 - Getting started](../module02/README.md).
+
 ## Create a graph
 
 Create the base tables.
