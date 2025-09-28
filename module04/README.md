@@ -60,15 +60,15 @@ Open the Cloud Shell in Google Cloud Console (you may need to authorize it).
 Modify the script below:
 
 - Set `INSTANCE_ID` to the ID of the Spanner instance.
-- Set `DATABASE_NAME` to the name of the database.
+- Set `DATABASE_ID` to the name of the database.
 
 Once done, run the script.
 
 ```shell
 INSTANCE_ID=my-instance
-DATABASE=my-database
+DATABASE_ID=my-database
 
-gcloud spanner databases execute-sql $DATABASE_NAME \
+gcloud spanner databases execute-sql $DATABASE_ID \
 --instance=$INSTANCE_ID \
 --sql="INSERT INTO users(username, location, age) VALUES('Max Mustermann','Germany',55);"
 ```
@@ -76,7 +76,7 @@ gcloud spanner databases execute-sql $DATABASE_NAME \
 Check the content of the table running this command.
 
 ```shell
-gcloud spanner databases execute-sql $DATABASE_NAME \
+gcloud spanner databases execute-sql $DATABASE_ID \
 --instance=$INSTANCE_ID \
 --sql="SELECT * FROM users;"
 ```
@@ -283,7 +283,7 @@ Modify the following script:
 
 - Set `REGION` to the desired region (e.g. europe-west1)
 - Set `INSTANCE_ID` to the ID of the Spanner instance
-- Set `DATABASE` to the name of the database
+- Set `DATABASE_ID` to the name of the database
 - Set `BUCKET_NAME` to the name of the bucket
 
 Run the script to start the Dataflow job.
@@ -291,13 +291,13 @@ Run the script to start the Dataflow job.
 ```shell
 REGION=europe-west1
 INSTANCE_ID=my-instance
-DATABASE=my-database
+DATABASE_ID=my-database
 BUCKET_NAME=my_bucket_name
 
 gcloud dataflow jobs run import-csv-to-spanner \
 --gcs-location gs://dataflow-templates-$REGION/latest/GCS_Text_to_Cloud_Spanner \
 --region $REGION \
---parameters instanceId=$INSTANCE_ID,databaseId=$DATABASE,importManifest=gs://$BUCKET_NAME/users-manifest.json \
+--parameters instanceId=$INSTANCE_ID,databaseId=$DATABASE_ID,importManifest=gs://$BUCKET_NAME/users-manifest.json \
 --disable-public-ips \
 --subnetwork=https://www.googleapis.com/compute/v1/projects/$GOOGLE_CLOUD_PROJECT/regions/$REGION/subnetworks/default
 ```
