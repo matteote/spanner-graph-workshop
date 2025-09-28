@@ -178,7 +178,15 @@ python mutations.py
 
 #### Create a network
 
-Dataflow requires a network. Create a default network using this command.
+Dataflow requires a default network.
+
+Check that a default network exists running this command in Cloud Shell.
+
+```shell
+gcloud compute networks list --filter="name=default"
+```
+
+If the default network does not exist, create it using these commands.
 
 Note: the command creates a subnet named "default" in every region.
 
