@@ -121,7 +121,7 @@ Copy the authorization code and paste it into the command line shell.
 Run the following command to start the ADK web interface and run the agent:
 
 ```shell
-cd ~/agent
+cd ~/agents
 adk web
 ```
 
@@ -191,7 +191,7 @@ root_agent = Agent(
 Start ADK:
 
 ```shell
-cd ~/agent
+cd ~/agents
 adk web
 ```
 
@@ -238,7 +238,7 @@ In `agent.py`, replace `gemini-2.0-flash` with `gemini-2.5-flash`.
 Start ADK:
 
 ```shell
-cd ~/agent
+cd ~/agents
 adk web
 ```
 

@@ -35,7 +35,7 @@ root_agent = Agent(
 Start ADK:
 
 ```shell
-cd ~/agent
+cd ~/agents
 adk web
 ```
 
@@ -124,7 +124,7 @@ root_agent = Agent(
 Start ADK:
 
 ```shell
-cd ~/agent
+cd ~/agents
 adk web
 ```
 

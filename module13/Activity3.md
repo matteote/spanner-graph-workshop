@@ -7,7 +7,7 @@ In this activity you query Spanner with the MCP Toolbox.
 Download the MCP Toolbox binary.
 
 ```shell
-cd ~/agent
+cd ~/agents
 wget https://storage.googleapis.com/genai-toolbox/v0.16.0/linux/amd64/toolbox
 chmod +x toolbox
 ```
@@ -15,7 +15,7 @@ chmod +x toolbox
 Create the toolbox configuration file.
 
 ```shell
-cd ~/agent
+cd ~/agents
 touch tools.yaml
 ```
 
@@ -146,7 +146,7 @@ root_agent = Agent(
 Start ADK:
 
 ```shell
-cd ~/agent
+cd ~/agents
 adk web
 ```
 
