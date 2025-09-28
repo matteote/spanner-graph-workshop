@@ -27,3 +27,7 @@ cd module12
 pip install -r requirements.txt
 python networkx-example.py
 ```
+
+The script retrieves the entire graph because it is particularly small. For larger graphs it is recommended to attempt extracting a subgraph, when possible.
+
+**CHALLENGE:** rewrite the code to work with a subgraph.
