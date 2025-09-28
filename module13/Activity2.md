@@ -6,6 +6,10 @@ In this activity you query Spanner with ADK's Built-in Tools for Spanner.
 
 From within module13 directory, run the following command to create a new Spanner database with schema and data.
 
+> [!NOTE] 
+> The script creates a database named `agent`. If the database already exists, it
+> is dropped and recreated.
+
 - Replace the value of `PROJECT_ID`
 - Replace the value of `INSTANCE_ID`
 
